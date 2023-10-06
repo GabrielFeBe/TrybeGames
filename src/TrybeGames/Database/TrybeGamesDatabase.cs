@@ -74,6 +74,7 @@ public class TrybeGamesDatabase
                    from played in playerEntry.GamesOwned
                    where played == game.Id
                    select game;
+
         return list.ToList();
     }
 
@@ -82,21 +83,53 @@ public class TrybeGamesDatabase
     public List<GameWithStudio> GetGamesWithStudio()
     {
         // Implementar
-        throw new NotImplementedException();
+        var list = from game in Games
+                   from studio in GameStudios
+                   where studio.Id == game.DeveloperStudio
+                   select new GameWithStudio
+                   {
+                       GameName = game.Name,
+                       NumberOfPlayers = game.Players.Count,
+                       StudioName = studio.Name
+                   };
+
+        return list.ToList();
     }
 
     // 8. Crie a funcionalidade de buscar todos os diferentes Tipos de jogos dentre os jogos cadastrados
     public List<GameType> GetGameTypes()
     {
         // Implementar
-        throw new NotImplementedException();
+        var list = from game in Games
+                   select game.GameType;
+
+
+
+        return list.Distinct().ToList();
     }
 
     // 9. Crie a funcionalidade de buscar todos os estúdios de jogos junto dos seus jogos desenvolvidos com suas pessoas jogadoras
     public List<StudioGamesPlayers> GetStudiosWithGamesAndPlayers()
     {
         // Implementar
-        throw new NotImplementedException();
+
+        var list = from studio in GameStudios
+                   select new StudioGamesPlayers
+                   {
+                       GameStudioName = studio.Name,
+                       Games = (from game in Games
+                                where game.DeveloperStudio == studio.Id
+                                select new GamePlayer
+                                {
+                                    GameName = game.Name,
+                                    Players = (from player in Players
+                                               from played in game.Players
+                                               where player.Id == played
+                                               select player).ToList()
+                                }).ToList()
+                   };
+        return list.ToList();
+
     }
 
 }
