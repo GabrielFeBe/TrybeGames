@@ -9,8 +9,8 @@ public class TrybeGamesDatabase
     public List<Player> Players = new List<Player>();
 
     public int PlayerId { get; set; } = 1;
-
     public int StudioId { get; set; } = 1;
+    public int GameId { get; set; } = 1;
 
     public void AddPlayer(string playerName)
     {
@@ -29,6 +29,17 @@ public class TrybeGamesDatabase
         StudioId++;
         studio.Name = studioName;
         GameStudios.Add(studio);
+
+    }
+    public void AddGame(string gameName, DateTime date, GameType gameType)
+    {
+        Game game = new();
+        game.Id = GameId;
+        game.Name = gameName;
+        game.ReleaseDate = date;
+        game.GameType = gameType;
+        Games.Add(game);
+        GameId++;
 
     }
 

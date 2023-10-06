@@ -140,7 +140,12 @@ public class TrybeGamesController
     public void AddGame()
     {
         // implementar
-        Console.WriteLine("Ainda não é possível realizar essa funcionalidade!");
+        string name = this.Console.ReadLine();
+        string releaseDate = this.Console.ReadLine();
+        DateTime date = DateTime.ParseExact(releaseDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+        string gameType = this.Console.ReadLine();
+        GameType type = (GameType)Enum.Parse(typeof(GameType), gameType);
+        database.AddGame(name, date, type);
     }
 
     public void ChangeGameStudio(Game game)
