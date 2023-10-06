@@ -8,6 +8,31 @@ public class TrybeGamesDatabase
 
     public List<Player> Players = new List<Player>();
 
+    public int PlayerId { get; set; } = 1;
+
+    public int StudioId { get; set; } = 1;
+
+    public void AddPlayer(string playerName)
+    {
+
+        Player player = new();
+        player.Id = PlayerId;
+        player.Name = playerName;
+        PlayerId++;
+        Players.Add(player);
+    }
+
+    public void AddStudio(string studioName)
+    {
+        GameStudio studio = new();
+        studio.Id = StudioId;
+        StudioId++;
+        studio.Name = studioName;
+        GameStudios.Add(studio);
+
+    }
+
+
     // 4. Crie a funcionalidade de buscar jogos desenvolvidos por um estúdio de jogos
     public List<Game> GetGamesDevelopedBy(GameStudio gameStudio)
     {
@@ -19,7 +44,7 @@ public class TrybeGamesDatabase
     public List<Game> GetGamesPlayedBy(Player player)
     {
         // Implementar
-        throw new NotImplementedException();  
+        throw new NotImplementedException();
     }
 
     // 6. Crie a funcionalidade de buscar jogos comprados por uma pessoa jogadora
@@ -34,9 +59,9 @@ public class TrybeGamesDatabase
     public List<GameWithStudio> GetGamesWithStudio()
     {
         // Implementar
-        throw new NotImplementedException();                      
+        throw new NotImplementedException();
     }
-    
+
     // 8. Crie a funcionalidade de buscar todos os diferentes Tipos de jogos dentre os jogos cadastrados
     public List<GameType> GetGameTypes()
     {
