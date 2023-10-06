@@ -70,7 +70,11 @@ public class TrybeGamesDatabase
     public List<Game> GetGamesOwnedBy(Player playerEntry)
     {
         // Implementar
-        throw new NotImplementedException();
+        var list = from game in Games
+                   from played in playerEntry.GamesOwned
+                   where played == game.Id
+                   select game;
+        return list.ToList();
     }
 
 
